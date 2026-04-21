@@ -1,42 +1,26 @@
-<!DOCTYPE html>
-<html>
-<body>
-
-<h2>Login</h2>
-
-<input id="email" placeholder="Email">
-<input id="pass" type="password" placeholder="Password">
-
-<button onclick="login()">Login</button>
-
-  <button onclick="signup()">Sign Up</button>
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
-
-<script src="firebase.js"></script>
-
-<script>
 function login(){
-  firebase.auth().signInWithEmailAndPassword(email.value, pass.value)
-  .then(()=> location="app.html");
+  let e = document.getElementById("email").value;
+  let p = document.getElementById("pass").value;
+
+  firebase.auth().signInWithEmailAndPassword(e, p)
+  .then(()=>{
+    alert("Login Success");
+    location="app.html";
+  })
+  .catch(err=>{
+    alert(err.message);
+  });
 }
 
-  function signup(){
-  firebase.auth().createUserWithEmailAndPassword(email.value, pass.value)
+function signup(){
+  let e = document.getElementById("email").value;
+  let p = document.getElementById("pass").value;
+
+  firebase.auth().createUserWithEmailAndPassword(e, p)
   .then(()=>{
     alert("Account Created! Now login");
   })
-  .catch(e=>{
-    alert(e.message);
+  .catch(err=>{
+    alert(err.message);
   });
 }
-</script>
-
-</body>
-</html>
