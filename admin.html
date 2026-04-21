@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Admin Panel</h2>
+
+<div id="orders"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+<script src="firebase.js"></script>
+
+<script>
+
+firebase.auth().onAuthStateChanged(user=>{
+  if(!user || user.email !== "YOUR_EMAIL@gmail.com"){
+    location="customer-login.html";
+  } else {
+    load();
+  }
+});
+
+function load(){
+  db.collection("bookings").onSnapshot(snap=>{
+    let html="";
+    snap.forEach(doc=>{
+      let d=doc.data();
+
+      html+=`
+      <div>
+        ${d.service} - ${d.status}
+        <img src="${d.screenshot}" width="100">
+        <button onclick="verify('${doc.id}')">Verify</button>
+      </div>`;
+    });
+    orders.innerHTML=html;
+  });
+}
+
+function verify(id){
+  db.collection("bookings").doc(id).update({
+    status:"Paid"
+  });
+}
+
+</script>
+
+</body>
+</html>
