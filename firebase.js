@@ -1,3 +1,4 @@
+// Your Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBjJSoGkYlDjbPA0lqF-4yu9UWw6SpHTSQ",
   authDomain: "duarah-store.firebaseapp.com",
@@ -8,6 +9,10 @@ const firebaseConfig = {
   measurementId: "G-EV5KNZ22G5"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// ✅ Correct initialization (compat version)
+firebase.initializeApp(firebaseConfig);
+
+// ✅ Services
+const db = firebase.firestore();
+const storage = firebase.storage();
+const auth = firebase.auth();
