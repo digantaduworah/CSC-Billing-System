@@ -29,3 +29,22 @@ button{
   border-radius:8px;
   margin-top:10px;
 }
+body{
+  font-family: 'Segoe UI';
+  background:#f5f7fb;
+}
+
+button{
+  background:#007bff;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+}
+
+input, select{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  width:100%;
+}
