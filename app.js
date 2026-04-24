@@ -208,7 +208,7 @@ db.collection("bookings").onSnapshot(snap=>{
   }
   lastCount = snap.size;
 });
-
+console.log("app.js loaded");
 // 🧾 PRINT
 function printBill(id, service, amount){
 
