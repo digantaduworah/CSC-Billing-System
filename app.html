@@ -1,6 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSC Billing System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="card">
+  <h2>🧾 New Order</h2>
+
+  <input id="phone" placeholder="Phone Number">
+
+  <select id="service" onchange="calc()">
+    <option value="">Select Service</option>
+    <option value="bw">Print B/W</option>
+    <option value="color">Print Color</option>
+    <option value="ebill">Electricity Bill</option>
+    <option value="pan">PAN Card</option>
+  </select>
+
+  <input type="number" id="qty" value="1" oninput="calc()">
+
+  <h3>Total: ₹ <span id="total">0</span></h3>
+
+  <button onclick="showQR()">Pay Now</button>
+
+  <div id="qrBox" style="display:none;">
+    <img src="paytm-qr.png" width="200">
+    <button onclick="submitOrder()">I Paid</button>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
 <script src="firebase.js"></script>
 <script src="app.js"></script>
-<script src="admin.js"></script>
+
+</body>
+</html>
