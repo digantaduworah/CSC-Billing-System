@@ -4,22 +4,27 @@
 
 <h2>Admin Panel</h2>
 
+<h3>Total Today: ₹ <span id="today">0</span></h3>
+
 <div id="orders"></div>
 
+<audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
 
 <script src="firebase.js"></script>
 
 <script>
 
+const ADMIN_EMAIL = "digantaduworah@gmail.com";
+
+let lastCount = 0;
+
 firebase.auth().onAuthStateChanged(user=>{
-  if(!user || user.email !== "digantaduworah@gmail.com"){
+  if(!user || user.email !== ADMIN_EMAIL){
+    alert("Access Denied");
     location="customer-login.html";
   } else {
     load();
@@ -27,19 +32,44 @@ firebase.auth().onAuthStateChanged(user=>{
 });
 
 function load(){
-  db.collection("bookings").onSnapshot(snap=>{
-    let html="";
-    snap.forEach(doc=>{
-      let d=doc.data();
 
-      html+=`
-      <div>
-        ${d.service} - ${d.status}
-        <img src="${d.screenshot}" width="100">
+  db.collection("bookings").orderBy("time","desc")
+  .onSnapshot(snap=>{
+
+    let html="";
+    let total = 0;
+
+    // 🔔 Notification sound
+    if(snap.size > lastCount){
+      document.getElementById("sound").play();
+    }
+    lastCount = snap.size;
+
+    snap.forEach(doc=>{
+      let d = doc.data();
+
+      total += Number(d.amount || 0);
+
+      html += `
+      <div style="border:1px solid #ccc; padding:10px; margin:10px; border-radius:10px;">
+        <b>${d.service}</b><br>
+        Order: ${d.orderId}<br>
+        Phone: ${d.phone || ""}<br>
+        Qty: ${d.qty || 1}<br>
+        Amount: ₹ ${d.amount}<br>
+        Status: ${d.status}<br>
+
+        ${d.screenshot ? `<img src="${d.screenshot}" width="100"><br>` : ""}
+
         <button onclick="verify('${doc.id}')">Verify</button>
-      </div>`;
+        <button onclick="printBill('${d.orderId}', '${d.service}', '${d.amount}')">Print</button>
+      </div>
+      `;
     });
-    orders.innerHTML=html;
+
+    document.getElementById("orders").innerHTML = html;
+    document.getElementById("today").innerText = total;
+
   });
 }
 
@@ -48,11 +78,24 @@ function verify(id){
     status:"Paid"
   });
 }
-Amount: ₹ ${d.amount}<br>
+
+function printBill(id, service, amount){
+
+  let w = window.open("");
+
+  w.document.write(`
+    <h2>Duarah Store</h2>
+    <hr>
+    Order: ${id}<br>
+    Service: ${service}<br>
+    Amount: ₹ ${amount}<br>
+    Date: ${new Date().toLocaleString()}
+  `);
+
+  w.print();
+}
+
 </script>
-Service: ${d.service}<br>
-Qty: ${d.qty || 1}<br>
-Amount: ₹ ${d.amount}<br>
+
 </body>
 </html>
-<button onclick="printBill('${d.orderId}', '${d.service}', '${d.amount}')">Print</button>
