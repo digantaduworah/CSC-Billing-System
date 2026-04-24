@@ -96,9 +96,6 @@ function calculateBill() {
     document.getElementById("ebillBox").style.display = "none";
   }
 
-  calculateBill();
-}
-
 // 💰 Price list
 const priceList = {
   "Print B/W": 10,
