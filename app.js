@@ -252,3 +252,18 @@ function printBill(id, service, amount){
 }
   <h3>Total Today: ₹ <span id="today">0</span></h3>
     
+let total = 0;
+
+snap.forEach(doc=>{
+  let d = doc.data();
+
+  let today = new Date().toDateString();
+  let ddate = new Date(d.time.seconds * 1000).toDateString();
+
+  if(today === ddate){
+    total += Number(d.amount);
+  }
+});
+
+document.getElementById("today").innerText = total;
+  
