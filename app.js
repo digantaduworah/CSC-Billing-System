@@ -42,6 +42,49 @@ function loadSubService(){
   } else {
     sub.innerHTML = "";
   }
-
+function handleService(){
+  document.getElementById("uploadBox").style.display = "block";
 }
+function calculateBill(){
+
+  let service = document.getElementById("service").value;
+  let sub = document.getElementById("subService").value;
+
+  let total = 0;
+
+  if(service === "PAN Card"){
+    total = (sub === "Correction") ? 250 : 300;
+  }
+
+  if(service === "Voter Card"){
+    total = (sub === "Correction") ? 150 : 200;
+  }
+
+  document.getElementById("total").innerText = total;
+}
+  <img src="paytm-qr.png" width="200">
+<h3>Total: ₹ <span id="total">0</span></h3>
+}
+function submitOrder(){
+
+  let phone = document.getElementById("phone").value;
+
+  if(phone.length < 10){
+    alert("Enter valid phone");
+    return;
+  }
+
+  let orderId = "DS" + Date.now();
+
+  db.collection("bookings").add({
+    orderId,
+    phone,
+    service: document.getElementById("service").value,
+    subService: document.getElementById("subService").value,
+    amount: document.getElementById("total").innerText,
+    status:"Pending",
+    time:new Date()
+  });
+
+  alert("Order Submitted");
 }
