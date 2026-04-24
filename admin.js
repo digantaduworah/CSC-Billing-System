@@ -35,3 +35,7 @@ function updateStatus(id, status) {
     status: status
   });
 }
+function logout() {
+  localStorage.removeItem("admin");
+  window.location.href = "login.html";
+}
