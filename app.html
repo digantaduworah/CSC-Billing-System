@@ -37,6 +37,31 @@
   <input id="phone" placeholder="Enter Phone Number">
 
   <!-- SERVICE -->
+  <h3>Select Service</h3>
+
+<select id="service" onchange="calculateBill()">
+  <option value="">Select Service</option>
+  <option>Print B/W</option>
+  <option>Print Color</option>
+  <option>Electricity Bill</option>
+  <option>PAN Card</option>
+</select>
+
+<!-- Quantity (for print) -->
+<div id="qtyBox" style="display:none;">
+  <input type="number" id="qty" value="1" oninput="calculateBill()">
+</div>
+
+<!-- Electricity -->
+<div id="ebillBox" style="display:none;">
+  <select id="ebillAmount" onchange="calculateBill()">
+    <option value="100">₹100</option>
+    <option value="200">₹200</option>
+    <option value="300">₹300</option>
+    <option value="400">₹400</option>
+    <option value="500">₹500</option>
+  </select>
+</div>
 <!-- 💰 TOTAL -->
 <h3>Total: ₹ <span id="total">0</span></h3>
 
