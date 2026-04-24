@@ -37,41 +37,23 @@
   <input id="phone" placeholder="Enter Phone Number">
 
   <!-- SERVICE -->
-  <select id="service" onchange="handleServiceChange(); calculateBill();">
-    <option value="">Select Service</option>
-    <option>Print B/W</option>
-    <option>Print Color</option>
-    <option>Electricity Bill</option>
-    <option>PAN Card</option>
-  </select>
+<!-- 💰 TOTAL -->
+<h3>Total: ₹ <span id="total">0</span></h3>
 
-  <!-- PRINT QTY -->
-  <div id="qtyBox" style="display:none;">
-    <input type="number" id="qty" value="1" oninput="calculateBill()">
-  </div>
+<!-- 💳 PAY BUTTON -->
+<button id="payBtn" onclick="showQR()">💳 Pay Now</button>
 
-  <!-- ELECTRICITY -->
-  <div id="ebillBox" style="display:none;">
-    <select id="ebillAmount" onchange="calculateBill()">
-      <option value="100">₹100</option>
-      <option value="200">₹200</option>
-      <option value="300">₹300</option>
-      <option value="400">₹400</option>
-      <option value="500">₹500</option>
-    </select>
-  </div>
+<!-- 📲 QR SECTION (HIDDEN FIRST) -->
+<div id="qrBox" style="display:none; text-align:center; margin-top:10px;">
 
-  <!-- TOTAL -->
-  <h3>Total: ₹ <span id="total">0</span></h3>
+  <p>Scan & Pay</p>
+  <img src="paytm-qr.png" width="200">
 
-  <!-- QR -->
-  <div style="text-align:center;">
-    <p>Scan & Pay</p>
-    <img src="paytm-qr.png" width="180">
-  </div>
+  <br><br>
 
-  <!-- SUBMIT -->
-  <button onclick="submitOrder()">Submit Order</button>
+  <button onclick="submitOrder()">✅ I Paid, Submit Order</button>
+
+</div>
 
 </div>
 
