@@ -1,29 +1,25 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Arial;
   background: #f5f7fb;
   padding: 15px;
 }
 
-/* Card UI */
 .card {
   background: white;
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
   margin-bottom: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
-/* Inputs */
 input, select {
   width: 100%;
   padding: 10px;
-  margin-top: 8px;
+  margin-top: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  outline: none;
 }
 
-/* Button */
 button {
   width: 100%;
   padding: 12px;
@@ -32,18 +28,4 @@ button {
   border: none;
   border-radius: 8px;
   margin-top: 10px;
-  transition: 0.2s ease;
-}
-
-/* Hover effect */
-button:hover {
-  background: #0056b3;
-  cursor: pointer;
-}
-.card {
-  transition: 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-3px);
 }
