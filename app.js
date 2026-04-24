@@ -96,34 +96,33 @@ function showQR(){
   document.getElementById("qrBox").style.display = "block";
 }
 // 💵 BILL
-function calculateBill(){
-
-  let service = document.getElementById("service")?.value;
-  let sub = document.getElementById("subService")?.value;
-  let qty = parseInt(document.getElementById("qty")?.value) || 1;
-
+function calculateBill() {
+  let service = document.getElementById("service").value;
   let total = 0;
 
-  if(service === "PAN Card"){
-    total = (sub === "Correction") ? 250 : 300;
-  }
-  else if(service === "Voter Card"){
-    total = (sub === "Correction") ? 150 : 200;
-  }
-  else if(service === "Electricity Bill"){
-    let bill = parseInt(document.getElementById("ebillAmount")?.value) || 0;
-    total = bill + 30;
-  }
-  else if(service === "Print B/W" || service === "Print Color" || service === "Scan"){
-    total = (priceList[service] || 0) * qty;
-  }
-  else{
-    total = priceList[service] || 0;
+  if (service === "Print B/W") {
+    let qty = parseInt(document.getElementById("qty").value);
+    if (isNaN(qty) || qty < 1) qty = 1;
+    total = qty * 5;
   }
 
-  document.getElementById("total")?.innerText = total;
+  else if (service === "Print Color") {
+    let qty = parseInt(document.getElementById("qty").value);
+    if (isNaN(qty) || qty < 1) qty = 1;
+    total = qty * 10;
+  }
+
+  else if (service === "Electricity Bill") {
+    total = parseInt(document.getElementById("ebillAmount").value);
+    if (isNaN(total)) total = 0;
+  }
+
+  else if (service === "PAN Card") {
+    total = 100;
+  }
+
+  document.getElementById("total").innerText = total;
 }
-
 // 📤 SUBMIT
 function submitOrder(){
 
