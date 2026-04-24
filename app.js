@@ -236,3 +236,19 @@ db.collection("bookings").onSnapshot(snap=>{
 
   lastCount = snap.size;
 });
+function printBill(id, service, amount){
+
+  let w = window.open("");
+
+  w.document.write(`
+    <h2>Duarah Store</h2>
+    Order: ${id}<br>
+    Service: ${service}<br>
+    Amount: ₹${amount}<br>
+    Date: ${new Date().toLocaleString()}
+  `);
+
+  w.print();
+}
+  <h3>Total Today: ₹ <span id="today">0</span></h3>
+    
