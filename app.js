@@ -226,3 +226,13 @@ Amount: ₹ ${d.amount}<br>
   let amt = parseInt(document.getElementById("customAmount").value) || 0;
   total = amt + 20; // service charge
 }
+let lastCount = 0;
+
+db.collection("bookings").onSnapshot(snap=>{
+
+  if(snap.size > lastCount){
+    document.getElementById("sound").play();
+  }
+
+  lastCount = snap.size;
+});
