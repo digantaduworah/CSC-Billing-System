@@ -63,31 +63,8 @@ function handleServiceChange() {
   if (service === "Electricity Bill") {
     document.getElementById("ebillBox").style.display = "block";
   }
-function calculateBill() {
-  let service = document.getElementById("service").value;
-  let total = 0;
 
-  if (service === "Print B/W") {
-    let qty = document.getElementById("qty").value || 1;
-    total = qty * 5; // ₹5 per page
-  }
-
-  else if (service === "Print Color") {
-    let qty = document.getElementById("qty").value || 1;
-    total = qty * 10; // ₹10 per page
-  }
-
-  else if (service === "Electricity Bill") {
-    total = parseInt(document.getElementById("ebillAmount").value || 0);
-  }
-
-  else if (service === "PAN Card") {
-    total = 100;
-  }
-
-  document.getElementById("total").innerText = total;
-}
-  calculateBill();
+  calculateBill(); // IMPORTANT
 }
   // Show electricity dropdown
   if(service === "Electricity Bill"){
