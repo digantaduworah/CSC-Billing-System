@@ -1,28 +1,103 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <style>
+    body{
+      font-family: Arial;
+      background:#f5f7fb;
+      padding:15px;
+    }
+    .card{
+      background:white;
+      padding:15px;
+      border-radius:12px;
+      margin-bottom:15px;
+    }
+    input, select, button{
+      width:100%;
+      padding:10px;
+      margin-top:10px;
+    }
+    button{
+      background:#007bff;
+      color:white;
+      border:none;
+      border-radius:8px;
+    }
+  </style>
+</head>
+
 <body>
-<img src="paytm-qr.png" width="200">
 
-<input type="number" id="qty" value="1" oninput="calculateBill()">
+<div class="card">
 
-<h3>Total: ₹ <span id="total">0</span></h3>
-<h2>Track Your Order</h2>
+  <h2>Duarah Store - Order</h2>
 
-<input id="phone" placeholder="Enter phone number"><br><br>
-<button onclick="track()">Track</button>
+  <!-- PHONE -->
+  <input id="phone" placeholder="Enter Phone Number">
 
-<div id="result" style="margin-top:15px;"></div>
+  <!-- SERVICE -->
+  <select id="service" onchange="handleServiceChange(); calculateBill();">
+    <option value="">Select Service</option>
+    <option>Print B/W</option>
+    <option>Print Color</option>
+    <option>Electricity Bill</option>
+    <option>PAN Card</option>
+  </select>
+
+  <!-- PRINT QTY -->
+  <div id="qtyBox" style="display:none;">
+    <input type="number" id="qty" value="1" oninput="calculateBill()">
+  </div>
+
+  <!-- ELECTRICITY -->
+  <div id="ebillBox" style="display:none;">
+    <select id="ebillAmount" onchange="calculateBill()">
+      <option value="100">₹100</option>
+      <option value="200">₹200</option>
+      <option value="300">₹300</option>
+      <option value="400">₹400</option>
+      <option value="500">₹500</option>
+    </select>
+  </div>
+
+  <!-- TOTAL -->
+  <h3>Total: ₹ <span id="total">0</span></h3>
+
+  <!-- QR -->
+  <div style="text-align:center;">
+    <p>Scan & Pay</p>
+    <img src="paytm-qr.png" width="180">
+  </div>
+
+  <!-- SUBMIT -->
+  <button onclick="submitOrder()">Submit Order</button>
+
+</div>
+
+<!-- TRACK SECTION -->
+<div class="card">
+
+  <h2>Track Your Order</h2>
+
+  <input id="trackPhone" placeholder="Enter phone number">
+  <button onclick="track()">Track</button>
+
+  <div id="result"></div>
+
+</div>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
 <script src="firebase.js"></script>
+<script src="app.js"></script>
 
 <script>
 function track(){
 
-  let phone = document.getElementById("phone").value;
+  let phone = document.getElementById("trackPhone").value;
 
   if(phone.length < 10){
     alert("Enter valid phone number");
@@ -60,10 +135,8 @@ function track(){
 
     document.getElementById("result").innerHTML = html;
 
-  })
-  .catch(err=>{
-    alert(err.message);
   });
+
 }
 </script>
 
