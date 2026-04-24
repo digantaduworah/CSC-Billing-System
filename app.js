@@ -8,7 +8,11 @@ const langData = {
     submit: "অৰ্ডাৰ কৰক"
   }
 };
-
+function verify(id){
+  db.collection("bookings").doc(id).update({
+    status:"Completed"
+  });
+}
 function setLang(lang){
   document.getElementById("title").innerText = langData[lang].title;
   document.getElementById("submitBtn").innerText = langData[lang].submit;
@@ -262,8 +266,19 @@ snap.forEach(doc=>{
 
   if(today === ddate){
     total += Number(d.amount);
+    let orderDate = d.time ? new Date(d.time.seconds * 1000).toLocaleString() : "";
+    Date: ${orderDate}<br>
   }
 });
 
 document.getElementById("today").innerText = total;
   
+let soundEnabled = false;
+
+function enableSound(){
+  soundEnabled = true;
+  alert("Sound Enabled");
+}
+  if(snap.size > lastCount && soundEnabled){
+  document.getElementById("sound").play();
+}
